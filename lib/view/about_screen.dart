@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class AboutScreen extends StatefulWidget {
@@ -11,6 +10,14 @@ class AboutScreen extends StatefulWidget {
 class _AboutAppScreenState extends State<AboutScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('About Screen')),);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('About'),
+        centerTitle: true,
+      ),
+      body: const Center(
+        child: Text('About Screen'),
+      ),
+    );
   }
 }

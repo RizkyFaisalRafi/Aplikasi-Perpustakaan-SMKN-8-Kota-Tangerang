@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CallDevScreen extends StatefulWidget {
@@ -10,8 +10,6 @@ class CallDevScreen extends StatefulWidget {
 }
 
 class _CallDevScreenState extends State<CallDevScreen> {
-  final Uri whatsappUrl =
-      Uri.parse('https://api.whatsapp.com/send?phone=62895412892094');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,32 +24,62 @@ class _CallDevScreenState extends State<CallDevScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Untuk keluhan, kritik, dan saran dalam penggunaan aplikasi Perpustakaan, Anda dapat menghubungi:',
               style: TextStyle(fontSize: 16),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             InkWell(
-              onTap: () => launchUrl(whatsappUrl),
+              onTap: () {
+                launchWhatsApp();
+              },
               child: Card(
                 child: ListTile(
-                  title: Text('0895 4128 92094'),
-                  leading: FlutterLogo(),
+                  title: const Text('0895 4128 92094'),
+                  leading: Image.asset(
+                    'assets/images/icon_wa.png',
+                    width: 28,
+                    height: 28,
+                  ),
                 ),
               ),
             ),
-            Card(
-              child: ListTile(
-                title: Text('rizkyfaisalrafi123@gmail.com'),
-                leading: FlutterLogo(),
+            InkWell(
+              onTap: () {
+                launchPhone();
+              },
+              child: Card(
+                child: ListTile(
+                  title: const Text('0895 4128 92094'),
+                  leading: Image.asset(
+                    'assets/images/icon_calldev.png',
+                    width: 30,
+                    height: 30,
+                  ),
+                ),
               ),
             ),
-            SizedBox(
+            InkWell(
+              onTap: () async {
+                launchEmail();
+              },
+              child: Card(
+                child: ListTile(
+                  title: const Text('rizkyfaisalrafi123@gmail.com'),
+                  leading: Image.asset(
+                    'assets/images/icon_email_dua.png',
+                    width: 28,
+                    height: 28,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
               height: 8,
             ),
-            Text(
+            const Text(
               'Hubungi kami pada saat jam kerja:\n06:00 - 16:00 WIB',
               style: TextStyle(fontSize: 16),
             ),
@@ -61,11 +89,50 @@ class _CallDevScreenState extends State<CallDevScreen> {
     );
   }
 
+  // Error
   void launchWhatsApp() async {
+    String url = "https://wa.me/62895412892094";
+    final Uri whatsappUrl = Uri(scheme: 'https', path: url);
+
     if (await canLaunchUrl(whatsappUrl)) {
       await launchUrl(whatsappUrl);
     } else {
       throw 'Could not launch $whatsappUrl';
     }
   }
+
+  void launchPhone() async {
+    final Uri url = Uri(scheme: 'tel', path: "0895412892094");
+
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  void launchEmail() async {
+    String? encodeQueryParameters(Map<String, String> params) {
+      return params.entries
+          .map((MapEntry<String, String> e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&');
+    }
+
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: 'rizkyfaisalrafi123@gmail.com',
+      query: encodeQueryParameters(<String, String>{
+        'subject': 'Send your Subject',
+        'body': 'Your Description',
+      }),
+    );
+
+    try {
+      await launchUrl(emailUri);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }
+// android:usesClearTraffic="true" 

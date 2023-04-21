@@ -11,16 +11,16 @@ class BookDataScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
-        children: [],
+        children: const [],
       ),
     );
   }
 
   Widget list() {
-    return Container(
-      child: ListView.builder(
-        itemBuilder: (BuildContext context, int index) {},
-      ),
+    return ListView.builder(
+      itemBuilder: (BuildContext context, int index) {
+        return null;
+      },
     );
   }
 }
