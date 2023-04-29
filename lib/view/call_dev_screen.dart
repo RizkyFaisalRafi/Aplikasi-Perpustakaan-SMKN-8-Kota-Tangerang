@@ -89,13 +89,12 @@ class _CallDevScreenState extends State<CallDevScreen> {
     );
   }
 
-  // Error
   void launchWhatsApp() async {
-    String url = "https://wa.me/62895412892094";
+    String url = "wa.me/62895412892094";
     final Uri whatsappUrl = Uri(scheme: 'https', path: url);
 
     if (await canLaunchUrl(whatsappUrl)) {
-      await launchUrl(whatsappUrl);
+      await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication);
     } else {
       throw 'Could not launch $whatsappUrl';
     }
