@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/theme.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/about_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/call_dev_screen.dart';
+
+import '../auth.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -9,6 +13,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  Future<void> signOut() async {
+    await Auth().signOut();
+  }
+
   Widget header() {
     return Center(
       child: Column(
@@ -47,7 +55,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget hubDev() {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/call-dev-screen');
+        // Navigator.pushNamed(context, '/call-dev-screen');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CallDevScreen()),
+        );
       },
       child: Container(
         margin: const EdgeInsets.only(top: 28),
@@ -91,7 +103,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget aboutApp() {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/about-app-screen');
+        // Navigator.pushNamed(context, '/about-app-screen');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AboutScreen()),
+        );
       },
       child: Card(
         child: Row(
@@ -165,7 +181,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget logOut() {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/login-screen');
+        // Navigator.pushNamed(context, '/login-screen');
+        signOut();
       },
       child: Card(
         child: Row(

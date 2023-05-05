@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "370951174156",
+    "project_id": "perpustakaan-smkn8-app",
+    "storage_bucket": "perpustakaan-smkn8-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370951174156:android:ddfd3659dd76061b299629",
+        "android_client_info": {
+          "package_name": "com.rifara.smkn8kotatangerang.perpustakaan_smkn_8_kota_tangerang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "370951174156-t874ndbrap7s6eqn65abf9fb9nhigsg0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfBoCYQMHA8vNvfIk60T7LcXX95Ot_yaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "370951174156-t874ndbrap7s6eqn65abf9fb9nhigsg0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "370951174156-j9ub9cfkqtdjpgca4ett4ll7tbgs8uon.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rifara.smkn8kotatangerang.perpustakaanSmkn8KotaTangerang"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

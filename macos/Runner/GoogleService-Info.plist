@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>370951174156-j9ub9cfkqtdjpgca4ett4ll7tbgs8uon.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.370951174156-j9ub9cfkqtdjpgca4ett4ll7tbgs8uon</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDiPFzRvYpFR8l9wLruMyIHNdqtcAF_6l8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>370951174156</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.rifara.smkn8kotatangerang.perpustakaanSmkn8KotaTangerang</string>
+	<key>PROJECT_ID</key>
+	<string>perpustakaan-smkn8-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>perpustakaan-smkn8-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:370951174156:ios:4507c390bada251c299629</string>
+</dict>
+</plist>

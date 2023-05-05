@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/auth.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/about_screen.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/book_data_screen.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/member_data_screen.dart';
@@ -9,7 +11,9 @@ import 'package:perpustakaan_smkn_8_kota_tangerang/view/transaction_screen.dart'
 import '../theme.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key, required this.user}) : super(key: key);
+  final User user;
+
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -17,6 +21,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
+
+  final User? user = Auth().currentUser;
+
+  // Future<void> signOut() async {
+  //   await Auth().signOut();
+  // }
 
   Widget? boddy() {
     switch (selectedIndex) {
@@ -60,7 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 12,
                   ),
                   Text(
-                    'Rizky Faisal Rafi',
+                    // 'Rizky Faisal Rafi',
+                    user?.email ?? 'User Email',
                     style: TextStyle(fontSize: 24, fontWeight: bold),
                   ),
                 ],

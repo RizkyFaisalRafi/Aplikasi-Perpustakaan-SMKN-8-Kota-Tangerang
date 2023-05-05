@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/theme.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/login_screen.dart';
+
+import '../auth.dart';
 
 const List<String> listGender = <String>['Pria', 'Wanita'];
 
@@ -11,6 +15,27 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  String? errorMessage = '';
+
+  final TextEditingController _controllerEmail =
+      TextEditingController(text: '');
+  final TextEditingController _controllerPassword =
+      TextEditingController(text: '');
+
+  // Sign Up
+  Future<void> createUserWithEmailAndPassword() async {
+    try {
+      await Auth.createUserWithEmailAndPassword(
+        email: _controllerEmail.text,
+        password: _controllerPassword.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     /// Header
@@ -179,6 +204,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        controller: _controllerEmail,
                         style: const TextStyle(color: Colors.black),
                         decoration: const InputDecoration.collapsed(
                             hintText: 'Your Email Address',
@@ -221,6 +247,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        controller: _controllerPassword,
                         style: const TextStyle(color: Colors.black),
                         obscureText: true,
                         decoration: const InputDecoration.collapsed(
@@ -247,8 +274,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         width: double.infinity,
         margin: const EdgeInsets.only(top: 60, bottom: 16),
         child: TextButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/login-screen');
+          onPressed: () async {
+            // Navigator.pushNamed(context, '/login-screen');
+            createUserWithEmailAndPassword();
+            // await Auth.signUp(
+            //   _controllerEmail.text,
+            //   _controllerPassword.text,
+            // );
           },
           style: TextButton.styleFrom(
               backgroundColor: primaryColor,
@@ -280,7 +312,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ]),
         child: TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/login-screen');
+            // Navigator.pushNamed(context, '/login-screen');
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
+            );
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.white,

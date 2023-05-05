@@ -37,6 +37,28 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^4.0.3
   url_launcher: ^6.1.10
+  firebase_core: ^2.11.0
+  firebase_auth: ^4.5.0
+  provider: ^6.0.5
+  flutter_native_splash: ^2.2.19
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  # color: "#FFCC00"
+  color: "#FFFFFF"
+  image: "assets/images/logo.png"
+  color_dark: "#272727"
+  image_dark: "assets/images/logo.png"
+
+  android_12:
+    image: "assets/images/logo.png"
+    icon_background_color: "#FFFFFF"
+    image_dark: "assets/images/logo.png"
+    icon_background_color_dark: "#272727"
+
 
 
 dev_dependencies:

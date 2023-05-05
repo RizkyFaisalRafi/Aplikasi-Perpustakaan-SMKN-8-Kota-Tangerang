@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/auth.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/theme.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -9,6 +12,40 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String? errorMessage = '';
+  // bool isLogin = true;
+
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
+
+  // Sign In
+  Future<void> signInWithEmailAndPassword() async {
+    try {
+      await Auth().signInWithEmailAndPassword(
+        email: _controllerEmail.text,
+        password: _controllerPassword.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message;
+      });
+    }
+  }
+
+  // // Sign Up
+  // Future<void> createUserWithEmailAndPassword() async {
+  //   try {
+  //     await Auth().createUserWithEmailAndPassword(
+  //       email: _controllerEmail.text,
+  //       password: _controllerPassword.text,
+  //     );
+  //   } on FirebaseAuthException catch (e) {
+  //     setState(() {
+  //       errorMessage = e.message;
+  //     });
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     /// Header
@@ -43,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     /// Form Email
     Widget emailInput() {
+      // TextEditingController? controller;
       return Container(
         margin: const EdgeInsets.only(top: 20),
         child: Column(
@@ -66,6 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        controller: _controllerEmail,
                         style: const TextStyle(color: Colors.black),
                         decoration: const InputDecoration.collapsed(
                             hintText: 'Your Email Address',
@@ -108,6 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        controller: _controllerPassword,
                         style: const TextStyle(color: Colors.black),
                         obscureText: true,
                         decoration: const InputDecoration.collapsed(
@@ -135,7 +175,11 @@ class _LoginScreenState extends State<LoginScreen> {
         margin: const EdgeInsets.only(top: 60, bottom: 16),
         child: TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/home-screen');
+            // Navigator.pushNamed(context, '/home-screen');
+            // isLogin
+            //     ? signInWithEmailAndPassword
+            //     : createUserWithEmailAndPassword;
+            signInWithEmailAndPassword();
           },
           style: TextButton.styleFrom(
               backgroundColor: primaryColor,
@@ -167,7 +211,9 @@ class _LoginScreenState extends State<LoginScreen> {
         ]),
         child: TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/register-screen');
+            // Navigator.pushNamed(context, '/register-screen');
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => RegisterScreen()));
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.white,
