@@ -32,20 +32,6 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  // // Sign Up
-  // Future<void> createUserWithEmailAndPassword() async {
-  //   try {
-  //     await Auth().createUserWithEmailAndPassword(
-  //       email: _controllerEmail.text,
-  //       password: _controllerPassword.text,
-  //     );
-  //   } on FirebaseAuthException catch (e) {
-  //     setState(() {
-  //       errorMessage = e.message;
-  //     });
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     /// Header

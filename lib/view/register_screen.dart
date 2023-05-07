@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/theme.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/login_screen.dart';
@@ -16,11 +17,42 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   String? errorMessage = '';
+  DatabaseReference? dbRef;
 
+  final TextEditingController _controllerName = TextEditingController(text: '');
+  final TextEditingController _controllerGender =
+      TextEditingController(text: '');
   final TextEditingController _controllerEmail =
       TextEditingController(text: '');
   final TextEditingController _controllerPassword =
       TextEditingController(text: '');
+
+  @override
+  void initState() {
+    super.initState();
+    dbRef = FirebaseDatabase.instance.ref().child('user');
+  }
+
+  upload() async {
+    try {
+      Map<String, String> User = {
+        'name': _controllerName.text,
+        'email': _controllerEmail.text,
+        'password': _controllerPassword.text,
+      };
+
+      dbRef!.push().set(User).whenComplete(() {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => LoginScreen(),
+          ),
+        );
+      });
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
 
   // Sign Up
   Future<void> createUserWithEmailAndPassword() async {
@@ -28,6 +60,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
       await Auth.createUserWithEmailAndPassword(
         email: _controllerEmail.text,
         password: _controllerPassword.text,
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginScreen(),
+        ),
       );
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -93,6 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        controller: _controllerName,
                         style: const TextStyle(color: Colors.black),
                         decoration: const InputDecoration.collapsed(
                             hintText: 'Your Name',
@@ -281,6 +320,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             //   _controllerEmail.text,
             //   _controllerPassword.text,
             // );
+            upload();
           },
           style: TextButton.styleFrom(
               backgroundColor: primaryColor,
@@ -333,29 +373,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
     return Scaffold(
-        body: SafeArea(
-      child: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.symmetric(
-            horizontal: defaultMargin,
-          ),
-          child: Column(
-            children: [
-              header(),
-              nameInput(),
-              genderInput(),
-              emailInput(),
-              passInput(),
-              signUpButton(),
-              Text(
-                'OR',
-                style: TextStyle(fontWeight: semiBold, fontSize: 20),
-              ),
-              signInButton(),
-            ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: defaultMargin,
+            ),
+            child: Column(
+              children: [
+                header(),
+                nameInput(),
+                genderInput(),
+                emailInput(),
+                passInput(),
+                signUpButton(),
+                Text(
+                  'OR',
+                  style: TextStyle(fontWeight: semiBold, fontSize: 20),
+                ),
+                signInButton(),
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 }

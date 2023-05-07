@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/auth.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/about_screen.dart';
@@ -14,7 +15,6 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.user}) : super(key: key);
   final User user;
 
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -26,6 +26,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Future<void> signOut() async {
   //   await Auth().signOut();
+  // }
+
+  DatabaseReference db_Ref = FirebaseDatabase.instance.ref().child('user');
+
+  // Future<void> getData() async {
+  //   final ref = FirebaseDatabase.instance.ref();
+  //   final event = await ref.once(DatabaseEventType.value);
+  //   final name = event.snapshot.value?.name ?? 'Anonymous';
   // }
 
   Widget? boddy() {
