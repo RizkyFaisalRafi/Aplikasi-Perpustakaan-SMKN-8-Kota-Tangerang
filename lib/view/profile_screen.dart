@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/theme.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/about_screen.dart';
@@ -13,6 +14,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final User? user = Auth().currentUser;
   Future<void> signOut() async {
     await Auth().signOut();
   }
@@ -30,14 +32,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
             height: 20,
           ),
           Text(
-            'Rizky Faisal Rafi',
+            // 'Rizky Faisal Rafi',
+            user?.uid ?? 'User Name',
             style: TextStyle(fontWeight: bold, fontSize: 20),
           ),
           const SizedBox(
             height: 4,
           ),
           Text(
-            'rizkyfaisalrafi123@gmail.com',
+            user?.email ?? 'User Email',
             style: TextStyle(fontWeight: reguler, fontSize: 17),
           ),
           const SizedBox(

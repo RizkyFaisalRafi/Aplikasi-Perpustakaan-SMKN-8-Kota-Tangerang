@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/model/book_data.dart';
 
 import '../../theme.dart';
 
-class BookDataDetail extends StatefulWidget {
-  const BookDataDetail({super.key});
+class BookDataDetail extends StatelessWidget {
+  final BookData bookData;
 
-  @override
-  State<BookDataDetail> createState() => _BookDataDetailState();
-}
+  const BookDataDetail({super.key, required this.bookData});
 
-class _BookDataDetailState extends State<BookDataDetail> {
   /// Change Button
   Widget changeButton() {
     return Container(
@@ -101,45 +96,51 @@ class _BookDataDetailState extends State<BookDataDetail> {
               height: 16,
             ),
 
-            const Card(
+            Card(
               child: ListTile(
                 title: Text('Nama Buku'),
-                trailing: Text('Pemrograman'),
+                trailing: Text(bookData.bookName ?? 'Null'),
               ),
             ),
 
-            const Card(
+            Card(
               child: ListTile(
                 title: Text('Pengarang'),
-                trailing: Text('Rizky Faisal Rafi'),
+                trailing: Text(bookData.author ?? 'Null'),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Penerbit'),
+                trailing: Text(bookData.publisher ?? 'Null'),
               ),
             ),
 
-            const Card(
+            Card(
               child: ListTile(
                 title: Text('Tahun Buku'),
-                trailing: Text('2024'),
+                trailing: Text(bookData.yearsOfBook ?? 'Null'),
               ),
             ),
 
-            const Card(
+            Card(
               child: ListTile(
                 title: Text('ISBN'),
-                trailing: Text('ASBI687YDYYBHY'),
+                trailing: Text(bookData.isbn ?? 'Null'),
               ),
             ),
 
-            const Card(
+            Card(
               child: ListTile(
                 title: Text('Jumlah Buku'),
-                trailing: Text('10'),
+                trailing: Text(bookData.numberOfBooks ?? 'Null'),
               ),
             ),
 
-            const Card(
+            Card(
               child: ListTile(
                 title: Text('Rak'),
-                trailing: Text('A2-B'),
+                trailing: Text(bookData.racks ?? 'Null'),
               ),
             ),
 

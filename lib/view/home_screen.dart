@@ -24,17 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final User? user = Auth().currentUser;
 
-  // Future<void> signOut() async {
-  //   await Auth().signOut();
-  // }
-
   DatabaseReference db_Ref = FirebaseDatabase.instance.ref().child('user');
-
-  // Future<void> getData() async {
-  //   final ref = FirebaseDatabase.instance.ref();
-  //   final event = await ref.once(DatabaseEventType.value);
-  //   final name = event.snapshot.value?.name ?? 'Anonymous';
-  // }
 
   Widget? boddy() {
     switch (selectedIndex) {

@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/add_data/book_add_data.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/detail_screen/book_data_detail.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/widget/member_tile.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/model/book_data.dart';
 
 class BookDataScreen extends StatelessWidget {
   const BookDataScreen({super.key});
@@ -12,45 +16,100 @@ class BookDataScreen extends StatelessWidget {
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const BookAddData(),
+            ),
+          );
+        },
         child: const Icon(Icons.add),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BookDataDetail(),
-                  ),
-                );
-              },
-              child: const Card(
-                child: ListTile(
-                  leading: FlutterLogo(
-                    size: 60.0,
-                  ),
-                  title: Text('Nama Buku'),
-                  subtitle: Text('Rak'),
-                  trailing: Icon(Icons.keyboard_arrow_right_outlined,
-                      color: Colors.green),
-                ),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection("book_data")
+            .orderBy("book_name",
+                descending:
+                    false) // True sorting dari z-a alphabet, false sorting dari a-z alphabet
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: snapshot.data?.docs.length,
+                itemBuilder: (context, index) {
+                  BookData bookData = BookData(
+                    bookName: snapshot.data!.docs[index]["book_name"],
+                    author: snapshot.data!.docs[index]["author"],
+                    publisher: snapshot.data!.docs[index]["publisher"],
+                    yearsOfBook: snapshot.data!.docs[index]["years_of_book"],
+                    isbn: snapshot.data!.docs[index]["isbn"],
+                    numberOfBooks: snapshot.data!.docs[index]
+                        ["number_of_books"],
+                    racks: snapshot.data!.docs[index]["racks"],
+                  );
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BookDataDetail(
+                            bookData: bookData,
+                          ),
+                        ),
+                      );
+                    },
+                    child: MemberTile(
+                      bookData: bookData,
+                    ),
+                  );
+                },
               ),
             );
-          },
-        ),
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }
 
-  Widget list() {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        return null;
-      },
-    );
-  }
+  // Widget list() {
+  //   return StreamBuilder(
+  //     stream: FirebaseFirestore.instance.collection("member").snapshots(),
+  //     builder: (context, snapshot) {
+  //       return ListView.builder(
+  //         itemCount: 10,
+  //         itemBuilder: (context, index) {
+  //           BookData bookData = BookData(
+  //             bookName: snapshot.data!.docs[index]["book_name"],
+  //             author: snapshot.data!.docs[index]["author"],
+  //             publisher: snapshot.data!.docs[index]["publisher"],
+  //             yearsOfBook: snapshot.data!.docs[index]["years_of_book"],
+  //             isbn: snapshot.data!.docs[index]["isbn"],
+  //             numberOfBooks: snapshot.data!.docs[index]["number_of_books"],
+  //             racks: snapshot.data!.docs[index]["racks"],
+  //           );
+  //           return InkWell(
+  //             onTap: () {
+  //               Navigator.push(
+  //                 context,
+  //                 MaterialPageRoute(
+  //                   builder: (context) => const BookDataDetail(),
+  //                 ),
+  //               );
+  //             },
+  //             child: MemberTile(
+  //               bookData: bookData,
+  //             ),
+  //           );
+  //         },
+  //       );
+  //     },
+  //   );
+  // }
 }
