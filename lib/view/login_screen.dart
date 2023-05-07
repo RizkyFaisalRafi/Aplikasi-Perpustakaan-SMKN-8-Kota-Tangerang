@@ -199,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
           onPressed: () {
             // Navigator.pushNamed(context, '/register-screen');
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => RegisterScreen()));
+                MaterialPageRoute(builder: (context) => const RegisterScreen()));
           },
           style: TextButton.styleFrom(
             backgroundColor: Colors.white,

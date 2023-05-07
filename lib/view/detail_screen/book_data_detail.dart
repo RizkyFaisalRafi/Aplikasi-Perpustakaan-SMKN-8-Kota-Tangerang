@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/model/book_data.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/add_data/book_add_data.dart';
 
 import '../../theme.dart';
 
@@ -9,7 +11,7 @@ class BookDataDetail extends StatelessWidget {
   const BookDataDetail({super.key, required this.bookData});
 
   /// Change Button
-  Widget changeButton() {
+  Widget changeButton(BuildContext context) {
     return Container(
       height: 50,
       width: double.infinity,
@@ -24,7 +26,16 @@ class BookDataDetail extends StatelessWidget {
         ),
       ]),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BookAddData(
+                bookData: bookData,
+              ),
+            ),
+          );
+        },
         style: TextButton.styleFrom(
           backgroundColor: Colors.green,
           shape:
@@ -40,7 +51,7 @@ class BookDataDetail extends StatelessWidget {
   }
 
   /// Delete Button
-  Widget deleteButton() {
+  Widget deleteButton(BuildContext context) {
     return Container(
       height: 50,
       width: double.infinity,
@@ -55,7 +66,25 @@ class BookDataDetail extends StatelessWidget {
         ),
       ]),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () async {
+          try {
+            await FirebaseFirestore.instance
+                .collection('book_data')
+                .doc(bookData.docId)
+                .delete();
+            if (context.mounted) {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Data Deleted Successfully'),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+          } catch (e) {
+            print(e.toString());
+          }
+        },
         style: TextButton.styleFrom(
           backgroundColor: Colors.red,
           shape:
@@ -98,54 +127,54 @@ class BookDataDetail extends StatelessWidget {
 
             Card(
               child: ListTile(
-                title: Text('Nama Buku'),
+                title: const Text('Nama Buku'),
                 trailing: Text(bookData.bookName ?? 'Null'),
               ),
             ),
 
             Card(
               child: ListTile(
-                title: Text('Pengarang'),
+                title: const Text('Pengarang'),
                 trailing: Text(bookData.author ?? 'Null'),
               ),
             ),
             Card(
               child: ListTile(
-                title: Text('Penerbit'),
+                title: const Text('Penerbit'),
                 trailing: Text(bookData.publisher ?? 'Null'),
               ),
             ),
 
             Card(
               child: ListTile(
-                title: Text('Tahun Buku'),
+                title: const Text('Tahun Buku'),
                 trailing: Text(bookData.yearsOfBook ?? 'Null'),
               ),
             ),
 
             Card(
               child: ListTile(
-                title: Text('ISBN'),
+                title: const Text('ISBN'),
                 trailing: Text(bookData.isbn ?? 'Null'),
               ),
             ),
 
             Card(
               child: ListTile(
-                title: Text('Jumlah Buku'),
+                title: const Text('Jumlah Buku'),
                 trailing: Text(bookData.numberOfBooks ?? 'Null'),
               ),
             ),
 
             Card(
               child: ListTile(
-                title: Text('Rak'),
+                title: const Text('Rak'),
                 trailing: Text(bookData.racks ?? 'Null'),
               ),
             ),
 
-            changeButton(),
-            deleteButton(),
+            changeButton(context),
+            deleteButton(context),
           ],
         ),
       ),

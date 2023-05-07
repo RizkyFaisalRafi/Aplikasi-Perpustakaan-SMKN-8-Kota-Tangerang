@@ -6,6 +6,7 @@ class BookData {
   final String? isbn;
   final String? numberOfBooks;
   final String? racks;
+  final String? docId;
   BookData({
     required this.bookName,
     required this.author,
@@ -14,5 +15,6 @@ class BookData {
     required this.isbn,
     required this.numberOfBooks,
     required this.racks,
+    required this.docId,
   });
 }

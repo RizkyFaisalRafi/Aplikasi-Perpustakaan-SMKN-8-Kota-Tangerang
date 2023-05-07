@@ -50,7 +50,44 @@ class _BookAddDataState extends State<BookAddData> {
     setState(() {
       isLoading = false;
     });
+
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Data Added Successfully'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      Navigator.pop(context);
+    }
+
     print(response.id);
+  }
+
+  updateUser() async {
+    try {
+      FirebaseFirestore.instance
+          .collection('book_data')
+          .doc(widget.bookData!.docId)
+          .update({
+        "book_name": bookNameController.text,
+        "author": authorController.text,
+        "publisher": publisherController.text,
+        "years_of_book": yearsOfBookController.text,
+        "isbn": isbnController.text,
+        "number_of_books": numberOfBooksController.text,
+        "racks": racksController.text,
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Data Updated Successfully'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      Navigator.pop(context);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -99,6 +136,7 @@ class _BookAddDataState extends State<BookAddData> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   if (widget.bookData != null) {
+                    updateUser();
                     print("edit book");
                   } else {
                     sendUserOnFirebase();
@@ -113,7 +151,7 @@ class _BookAddDataState extends State<BookAddData> {
                 ),
               ),
               child: Text(
-                'Tambah Data',
+                widget.bookData != null ? 'Update Data' : 'Add Data',
                 style: TextStyle(
                     fontSize: 16, fontWeight: medium, color: Colors.white),
               ),

@@ -41,6 +41,7 @@ class BookDataScreen extends StatelessWidget {
                 itemCount: snapshot.data?.docs.length,
                 itemBuilder: (context, index) {
                   BookData bookData = BookData(
+                    docId: snapshot.data!.docs[index].id,
                     bookName: snapshot.data!.docs[index]["book_name"],
                     author: snapshot.data!.docs[index]["author"],
                     publisher: snapshot.data!.docs[index]["publisher"],

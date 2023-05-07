@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/auth.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/about_screen.dart';
@@ -23,8 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
 
   final User? user = Auth().currentUser;
-
-  DatabaseReference db_Ref = FirebaseDatabase.instance.ref().child('user');
 
   Widget? boddy() {
     switch (selectedIndex) {

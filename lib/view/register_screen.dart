@@ -35,17 +35,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   upload() async {
     try {
-      Map<String, String> User = {
+      Map<String, String> user = {
         'name': _controllerName.text,
         'email': _controllerEmail.text,
         'password': _controllerPassword.text,
       };
 
-      dbRef!.push().set(User).whenComplete(() {
+      dbRef!.push().set(user).whenComplete(() {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (_) => LoginScreen(),
+            builder: (_) => const LoginScreen(),
           ),
         );
       });
@@ -61,12 +61,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
         email: _controllerEmail.text,
         password: _controllerPassword.text,
       );
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginScreen(),
-        ),
-      );
+      if (context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginScreen(),
+          ),
+        );
+      }
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
