@@ -26,7 +26,7 @@ class _BookAddDataState extends State<BookAddData> {
   TextEditingController racksController = TextEditingController();
   bool isLoading = false;
 
-  sendUserOnFirebase() async {
+  sendBookOnFirebase() async {
     setState(() {
       isLoading = true;
     });
@@ -64,7 +64,7 @@ class _BookAddDataState extends State<BookAddData> {
     print(response.id);
   }
 
-  updateUser() async {
+  updateBook() async {
     try {
       FirebaseFirestore.instance
           .collection('book_data')
@@ -136,10 +136,10 @@ class _BookAddDataState extends State<BookAddData> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   if (widget.bookData != null) {
-                    updateUser();
+                    updateBook();
                     print("edit book");
                   } else {
-                    sendUserOnFirebase();
+                    sendBookOnFirebase();
                     print("Success add new book");
                   }
                 } else {}
