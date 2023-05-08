@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 Color primaryColor = const Color(0xff49A35A);
+Color whiteColor = Colors.white;
+Color backgroundGray = const Color(0XFFEFEFEF);
 
 double defaultMargin = 24.0;
 

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../theme.dart';
+import '../util/theme.dart';
 
 class CallDevScreen extends StatefulWidget {
   const CallDevScreen({Key? key}) : super(key: key);
@@ -83,7 +82,7 @@ class _CallDevScreenState extends State<CallDevScreen> {
               height: 8,
             ),
             const Text(
-              'Hubungi kami pada saat jam kerja:\n06:00 - 16:00 WIB',
+              'Hubungi kami pada saat jam kerja:\n09:00 - 16:00 WIB',
               style: TextStyle(fontSize: 16),
             ),
           ],
@@ -133,8 +132,7 @@ class _CallDevScreenState extends State<CallDevScreen> {
     try {
       await launchUrl(emailUri);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
   }
 }
-// android:usesClearTraffic="true" 

@@ -1,12 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/home_screen.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/transaction_screen.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/wrapper.dart';
 
 import '../../model/report_data.dart';
-import '../../theme.dart';
-import '../report_screen.dart';
+import '../../util/theme.dart';
 
 class ReportDataDetail extends StatelessWidget {
   final ReportData reportData;
@@ -65,7 +61,7 @@ class ReportDataDetail extends StatelessWidget {
                             );
                           }
                         } catch (e) {
-                          print(e.toString());
+                          debugPrint(e.toString());
                         }
                       },
                       child: const Text('YA'),

@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/home_screen.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/report_screen.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/transaction_screen.dart';
-
 import '../../model/transaction_data.dart';
-import '../../theme.dart';
+import '../../util/theme.dart';
 import '../add_data/transaction_add_data.dart';
 
 class TransactionDataDetail extends StatelessWidget {
@@ -73,8 +70,8 @@ class TransactionDataDetail extends StatelessWidget {
           showDialog(
             context: context,
             builder: ((context) => AlertDialog(
-                  title: Text('Konfirmasi'),
-                  content: Text('Apakah Anda yakin buku telah dikembalikan?'),
+                  title: const Text('Konfirmasi'),
+                  content: const Text('Apakah Anda yakin buku telah dikembalikan?'),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'TIDAK'),
@@ -103,7 +100,7 @@ class TransactionDataDetail extends StatelessWidget {
                             );
                           }
                         } catch (e) {
-                          print(e.toString());
+                          debugPrint(e.toString());
                         }
 
                         /// Add Data to collection report_data
@@ -117,7 +114,7 @@ class TransactionDataDetail extends StatelessWidget {
                             "return_date": transactionData.returnDate,
                           });
                         } catch (e) {
-                          print(e.toString());
+                          debugPrint(e.toString());
                         }
                       },
                       // Navigator.pop(context, 'YA'),

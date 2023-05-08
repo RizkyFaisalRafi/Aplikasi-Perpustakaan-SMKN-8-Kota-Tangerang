@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/auth.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/theme.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/wrapper.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/provider/auth_provider.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/util/theme.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/util/key.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/auth_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/home_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -25,21 +27,34 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User? firebaseUser = Provider.of<User?>(context);
-
     // Firebase Authentication email and password
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: primaryColor,
-      ),
-      home: StreamProvider.value(
-        value: Auth.firebaseUserStream,
-        initialData: null,
-        child: const MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Wrapper(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => AuthProvider(),
         ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        scaffoldMessengerKey: Keys.scaffoldMessengerKey,
+        theme: ThemeData(
+          primaryColor: primaryColor,
+        ),
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshoot) {
+            if (snapshoot.hasData) {
+              return const HomeScreen();
+            } else {
+              return const AuthScreen();
+            }
+          },
+        ),
+        // StreamProvider.value(
+        //   value: Auth.firebaseUserStream,
+        //   initialData: null,
+        //   child: const Wrapper(),
+        // ),
       ),
     );
   }

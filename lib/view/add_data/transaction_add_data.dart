@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/transaction_data.dart';
-import '../../theme.dart';
+import '../../util/theme.dart';
 
 class TransactionAddData extends StatefulWidget {
   final TransactionData? transactionData;
@@ -53,7 +53,7 @@ class _TransactionAddDataState extends State<TransactionAddData> {
       Navigator.pop(context);
     }
 
-    print(response.id);
+    debugPrint(response.id);
   }
 
   // Update
@@ -76,7 +76,7 @@ class _TransactionAddDataState extends State<TransactionAddData> {
       );
       Navigator.pop(context);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
   }
 
@@ -124,10 +124,10 @@ class _TransactionAddDataState extends State<TransactionAddData> {
                 if (_formKey.currentState!.validate()) {
                   if (widget.transactionData != null) {
                     updateMember();
-                    print("edit member");
+                    debugPrint("edit member");
                   } else {
                     sendMemberOnFirebase();
-                    print("Success add new member");
+                    debugPrint("Success add new member");
                   }
                 } else {}
               },

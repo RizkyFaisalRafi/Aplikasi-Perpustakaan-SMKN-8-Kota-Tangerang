@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/model/book_data.dart';
 
-import '../../theme.dart';
+import '../../util/theme.dart';
 
 class BookAddData extends StatefulWidget {
   final BookData? bookData;
@@ -61,7 +61,7 @@ class _BookAddDataState extends State<BookAddData> {
       Navigator.pop(context);
     }
 
-    print(response.id);
+    debugPrint(response.id);
   }
 
   updateBook() async {
@@ -86,7 +86,7 @@ class _BookAddDataState extends State<BookAddData> {
       );
       Navigator.pop(context);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
   }
 
@@ -137,10 +137,10 @@ class _BookAddDataState extends State<BookAddData> {
                 if (_formKey.currentState!.validate()) {
                   if (widget.bookData != null) {
                     updateBook();
-                    print("edit book");
+                    debugPrint("edit book");
                   } else {
                     sendBookOnFirebase();
-                    print("Success add new book");
+                    debugPrint("Success add new book");
                   }
                 } else {}
               },

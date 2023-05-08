@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/model/report_data.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/util/theme.dart';
 
 import '../widget/report_tile.dart';
 import 'detail_screen/report_data_detail.dart';
@@ -11,7 +12,7 @@ class ReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffEFEFEF),
+      backgroundColor: whiteColor,
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection("report_data")
@@ -20,7 +21,7 @@ class ReportScreen extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {

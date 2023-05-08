@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/model/book_data.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/add_data/book_add_data.dart';
 
-import '../../theme.dart';
+import '../../util/theme.dart';
 
 class BookDataDetail extends StatelessWidget {
   final BookData bookData;
@@ -82,7 +82,7 @@ class BookDataDetail extends StatelessWidget {
               );
             }
           } catch (e) {
-            print(e.toString());
+            debugPrint(e.toString());
           }
         },
         style: TextButton.styleFrom(

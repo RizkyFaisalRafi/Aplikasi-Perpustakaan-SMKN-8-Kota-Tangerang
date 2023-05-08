@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/model/transaction_data.dart';
-
 import '../model/report_data.dart';
 
 class ReportTile extends StatelessWidget {

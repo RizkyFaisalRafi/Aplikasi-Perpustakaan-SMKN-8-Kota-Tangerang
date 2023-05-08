@@ -1,10 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/theme.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/about_screen.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/call_dev_screen.dart';
-
-import '../auth.dart';
+import 'package:provider/provider.dart';
+import '../provider/auth_provider.dart';
+import '../widget/menu_profile.dart';
+import '../widget/header_profile.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -14,212 +14,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final User? user = Auth().currentUser;
-  Future<void> signOut() async {
-    await Auth().signOut();
-  }
-
-  Widget header() {
-    return Center(
-      child: Column(
-        children: [
-          const CircleAvatar(
-            backgroundColor: Colors.black,
-            radius: 80,
-            backgroundImage: AssetImage('assets/images/icon_name.png'),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            // 'Rizky Faisal Rafi',
-            user?.uid ?? 'User Name',
-            style: TextStyle(fontWeight: bold, fontSize: 20),
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          Text(
-            user?.email ?? 'User Email',
-            style: TextStyle(fontWeight: reguler, fontSize: 17),
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          Text(
-            'Laki-laki',
-            style: TextStyle(fontWeight: reguler, fontSize: 17),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget hubDev() {
-    return InkWell(
-      onTap: () {
-        // Navigator.pushNamed(context, '/call-dev-screen');
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const CallDevScreen()),
-        );
-      },
-      child: Container(
-        margin: const EdgeInsets.only(top: 28),
-        child: Card(
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(4),
-                child: Image.asset(
-                  'assets/images/icon_calldev.png',
-                  width: 56,
-                  height: 56,
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Hubungi Developer',
-                      style: TextStyle(fontWeight: bold, fontSize: 14),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      'Sampaikan kendala, kritik, dan saran Anda.',
-                      style: TextStyle(fontWeight: reguler),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget aboutApp() {
-    return InkWell(
-      onTap: () {
-        // Navigator.pushNamed(context, '/about-app-screen');
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const AboutScreen()),
-        );
-      },
-      child: Card(
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(4),
-              child: Image.asset(
-                'assets/images/icon_about_app.png',
-                width: 56,
-                height: 56,
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Tentang Aplikasi', style: TextStyle(fontWeight: bold)),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    'Lihat informasi lengkap tentang aplikasi.',
-                    style: TextStyle(fontWeight: reguler),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget rateApp() {
-    return InkWell(
-      onTap: () {},
-      child: Card(
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(4),
-              child: Image.asset(
-                'assets/images/icon_rate_app.png',
-                width: 56,
-                height: 56,
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Rate Aplikasi', style: TextStyle(fontWeight: bold)),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    'Menilai aplikasi di Google Play Store.',
-                    style: TextStyle(fontWeight: reguler),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget logOut() {
-    return InkWell(
-      onTap: () {
-        // Navigator.pushNamed(context, '/login-screen');
-        signOut();
-      },
-      child: Card(
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(4),
-              child: Image.asset(
-                'assets/images/icon_logout.png',
-                width: 56,
-                height: 56,
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Keluar Akun', style: TextStyle(fontWeight: bold)),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    'Klik untuk keluar dari akun Anda.',
-                    style: TextStyle(fontWeight: reguler),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -231,11 +25,60 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(
                 height: 24,
               ),
-              header(),
-              hubDev(),
-              aboutApp(),
-              rateApp(),
-              logOut(),
+              const HeaderProfile(),
+              const SizedBox(
+                height: 28,
+              ),
+
+              // Hubungi Developer
+              MenuProfile(
+                image: 'assets/images/icon_calldev.png',
+                title: 'Hubungi Developer',
+                subTitle: 'Sampaikan kendala, kritik, dan saran Anda.',
+                onTap: () {
+                  {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const CallDevScreen(),
+                      ),
+                    );
+                  }
+                },
+              ),
+
+              // Tentang Aplikasi
+              MenuProfile(
+                image: 'assets/images/icon_about_app.png',
+                title: 'Tentang Aplikasi',
+                subTitle: 'Lihat informasi lengkap tentang aplikasi.',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AboutScreen(),
+                    ),
+                  );
+                },
+              ),
+
+              // Rate Aplikasi
+              MenuProfile(
+                image: 'assets/images/icon_rate_app.png',
+                title: 'Rate Aplikasi',
+                subTitle: 'Menilai aplikasi di Google Play Store.',
+                onTap: () {},
+              ),
+
+              // Keluar Akun
+              Consumer<AuthProvider>(builder: (context, provider, _) {
+                return MenuProfile(
+                  image: 'assets/images/icon_logout.png',
+                  title: 'Keluar Akun',
+                  subTitle: 'Klik untuk keluar dari akun Anda.',
+                  onTap: () => provider.logOut(),
+                );
+              }),
               // Image.asset('assets/images/gradient_bottom.png')
             ],
           ),

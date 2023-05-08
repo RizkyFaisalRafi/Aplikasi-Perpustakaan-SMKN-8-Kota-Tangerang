@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/member_data.dart';
-import '../../theme.dart';
+import '../../util/theme.dart';
 import '../add_data/member_add_data.dart';
 
 class MemberDataDetail extends StatelessWidget {
@@ -82,7 +82,7 @@ class MemberDataDetail extends StatelessWidget {
               );
             }
           } catch (e) {
-            print(e.toString());
+            debugPrint(e.toString());
           }
         },
         style: TextButton.styleFrom(
