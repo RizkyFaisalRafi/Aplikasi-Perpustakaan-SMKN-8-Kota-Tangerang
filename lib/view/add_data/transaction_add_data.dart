@@ -150,6 +150,7 @@ class _TransactionAddDataState extends State<TransactionAddData> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: primaryColor,
         title: const Text('Tambah Data Peminjaman'),
         centerTitle: true,
       ),

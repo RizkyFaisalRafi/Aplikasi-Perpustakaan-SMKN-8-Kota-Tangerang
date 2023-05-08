@@ -166,6 +166,7 @@ class _MemberAddDataState extends State<MemberAddData> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: primaryColor,
         title: const Text('Tambah Data Anggota'),
         centerTitle: true,
       ),

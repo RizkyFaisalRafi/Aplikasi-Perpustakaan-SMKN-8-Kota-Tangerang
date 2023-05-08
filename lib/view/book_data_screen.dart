@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/theme.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/add_data/book_add_data.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/detail_screen/book_data_detail.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/widget/book_tile.dart';
@@ -12,6 +13,7 @@ class BookDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: primaryColor,
         title: const Text('Book Data'),
         centerTitle: true,
       ),

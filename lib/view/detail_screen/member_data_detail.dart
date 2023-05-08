@@ -104,6 +104,7 @@ class MemberDataDetail extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffEFEFEF),
       appBar: AppBar(
+        backgroundColor: primaryColor,
         title: const Text('Detail'),
         centerTitle: true,
       ),

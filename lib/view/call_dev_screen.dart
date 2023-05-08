@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../theme.dart';
+
 class CallDevScreen extends StatefulWidget {
   const CallDevScreen({Key? key}) : super(key: key);
 
@@ -14,6 +16,7 @@ class _CallDevScreenState extends State<CallDevScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: primaryColor,
         title: const Text(
           'Contact Developer',
         ),

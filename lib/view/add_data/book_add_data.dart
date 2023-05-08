@@ -163,6 +163,7 @@ class _BookAddDataState extends State<BookAddData> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: primaryColor,
         title: const Text('Tambah Data Buku'),
         centerTitle: true,
       ),

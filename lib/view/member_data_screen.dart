@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/add_data/member_add_data.dart';
 
 import '../model/member_data.dart';
+import '../theme.dart';
 import '../widget/member_tile.dart';
 import 'detail_screen/member_data_detail.dart';
 
@@ -13,6 +14,7 @@ class MemberDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: primaryColor,
         title: const Text('Member Data'),
         centerTitle: true,
       ),

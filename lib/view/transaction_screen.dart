@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/model/transaction_data.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/widget/transaction_tile.dart';
 
+import '../theme.dart';
 import 'add_data/transaction_add_data.dart';
 import 'detail_screen/transaction_data_detail.dart';
 
@@ -13,6 +14,7 @@ class TransactionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: primaryColor,
         title: const Text('Transaction'),
         centerTitle: true,
       ),

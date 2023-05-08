@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme.dart';
+
 class AboutScreen extends StatefulWidget {
   const AboutScreen({Key? key}) : super(key: key);
 
@@ -15,6 +17,7 @@ class _AboutAppScreenState extends State<AboutScreen> {
     return Scaffold(
       backgroundColor: const Color(0xffEFEFEF),
       appBar: AppBar(
+        backgroundColor: primaryColor,
         title: const Text('About'),
         centerTitle: true,
       ),
