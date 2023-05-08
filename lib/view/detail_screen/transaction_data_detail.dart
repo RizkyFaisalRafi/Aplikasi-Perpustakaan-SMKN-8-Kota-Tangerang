@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/home_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/report_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/transaction_screen.dart';
 
 import '../../model/transaction_data.dart';
 import '../../theme.dart';
@@ -50,7 +53,7 @@ class TransactionDataDetail extends StatelessWidget {
     );
   }
 
-  /// Delete Button
+  /// Sudah Kembali Button
   Widget deleteButton(BuildContext context) {
     return Container(
       height: 50,
@@ -67,31 +70,70 @@ class TransactionDataDetail extends StatelessWidget {
       ]),
       child: TextButton(
         onPressed: () async {
-          try {
-            await FirebaseFirestore.instance
-                .collection('transaction_data')
-                .doc(transactionData.docId)
-                .delete();
-            if (context.mounted) {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Data Deleted Successfully'),
-                  backgroundColor: Colors.red,
-                ),
-              );
-            }
-          } catch (e) {
-            print(e.toString());
-          }
+          showDialog(
+            context: context,
+            builder: ((context) => AlertDialog(
+                  title: Text('Konfirmasi'),
+                  content: Text('Apakah Anda yakin buku telah dikembalikan?'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'TIDAK'),
+                      child: const Text('TIDAK'),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        /// Delete from collection transaction_data
+                        try {
+                          await FirebaseFirestore.instance
+                              .collection('transaction_data')
+                              .doc(transactionData.docId)
+                              .delete();
+                          if (context.mounted) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TransactionScreen(),
+                              ),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Data Deleted Successfully'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
+                        } catch (e) {
+                          print(e.toString());
+                        }
+
+                        /// Add Data to collection report_data
+                        try {
+                          FirebaseFirestore.instance
+                              .collection('report_data')
+                              .add({
+                            "student_name": transactionData.studentsName,
+                            "name_book": transactionData.nameBook,
+                            "borrow_date": transactionData.borrowDate,
+                            "return_date": transactionData.returnDate,
+                          });
+                        } catch (e) {
+                          print(e.toString());
+                        }
+                      },
+                      // Navigator.pop(context, 'YA'),
+                      child: const Text('YA'),
+                    ),
+                  ],
+                )),
+          );
         },
         style: TextButton.styleFrom(
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.green,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
         child: Text(
-          'Delete',
+          'Sudah Kembali',
           style:
               TextStyle(fontSize: 16, fontWeight: medium, color: Colors.white),
         ),
