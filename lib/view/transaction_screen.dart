@@ -29,6 +29,7 @@ class TransactionScreen extends StatelessWidget {
         },
         child: const Icon(Icons.add),
       ),
+      
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection("transaction_data")
