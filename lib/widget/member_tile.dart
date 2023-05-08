@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/model/book_data.dart';
+import '../model/member_data.dart';
 
 class MemberTile extends StatelessWidget {
-  final BookData bookData;
-  const MemberTile({super.key, required this.bookData});
+  final MemberData memberData;
+  const MemberTile({super.key, required this.memberData});
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +12,10 @@ class MemberTile extends StatelessWidget {
         leading: const FlutterLogo(
           size: 60.0,
         ),
-        title: Text(bookData.bookName??'Null'),
-        subtitle: Text(bookData.racks??'Null'),
-        trailing:
-            const Icon(Icons.keyboard_arrow_right_outlined, color: Colors.green),
+        title: Text(memberData.studentsName ?? 'Null'),
+        subtitle: Text(memberData.nis ?? 'Null'),
+        trailing: const Icon(Icons.keyboard_arrow_right_outlined,
+            color: Colors.green),
       ),
     );
   }
