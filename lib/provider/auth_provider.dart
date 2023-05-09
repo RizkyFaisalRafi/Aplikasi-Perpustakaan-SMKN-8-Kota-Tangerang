@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/widget/custom_text_field.dart';
 import '../util/key.dart';
 
@@ -16,9 +17,9 @@ class AuthProvider extends ChangeNotifier {
   TextEditingController controllerPassword = TextEditingController();
   TextEditingController controllerName = TextEditingController();
   TextEditingController controllerGender = TextEditingController();
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance; // Auth
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance; // Auth
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance; // Firestore
-  User? get currentUser => _firebaseAuth.currentUser;
+  User? get currentUser => firebaseAuth.currentUser;
 
   AuthType _authType = AuthType.signIn;
   AuthType get authType => _authType;
@@ -34,14 +35,14 @@ class AuthProvider extends ChangeNotifier {
     try {
       // Sign In
       if (_authType == AuthType.signIn) {
-        userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        userCredential = await firebaseAuth.signInWithEmailAndPassword(
           email: controllerEmail.text,
           password: controllerPassword.text,
         );
       }
       // Sign Up
       if (_authType == AuthType.signUp) {
-        userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+        userCredential = await firebaseAuth.createUserWithEmailAndPassword(
           email: controllerEmail.text,
           password: controllerPassword.text,
         );
@@ -76,13 +77,13 @@ class AuthProvider extends ChangeNotifier {
   // Memperbarui status email verifikasi state
   Future<void> updateEmailVerificationState() async {
     String timerCalled = 'Timer Called';
-    emailVerified = _firebaseAuth.currentUser!.emailVerified;
+    emailVerified = firebaseAuth.currentUser!.emailVerified;
     // Akan me reload otomatis 3 detik apabila email belum diverifikasi
     if (!emailVerified!) {
       Timer.periodic(const Duration(seconds: 3), (timer) async {
         debugPrint(timerCalled);
-        await _firebaseAuth.currentUser?.reload();
-        final user = _firebaseAuth.currentUser;
+        await firebaseAuth.currentUser?.reload();
+        final user = firebaseAuth.currentUser;
         if (user!.emailVerified) {
           emailVerified = user.emailVerified;
           timer.cancel; // Ketika Sudah diverifikasi akan berhenti timernya
@@ -92,14 +93,46 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  GoogleSignIn googleSignIn = GoogleSignIn();
+
+  Future<void> signInWithGoogle() async {
+    GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+
+    if (googleSignInAccount != null) {
+      try {
+        GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+        AuthCredential authCredential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+        await firebaseAuth.signInWithCredential(authCredential);
+        print(googleSignInAccount.photoUrl);
+        print(googleSignInAccount.displayName);
+        print(googleSignInAccount.email);
+      } on FirebaseAuthException catch (e) {
+        Keys.scaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
+          content: Text(e.message!),
+          backgroundColor: Colors.red,
+        ));
+      }
+    } else {
+      Keys.scaffoldMessengerKey.currentState!.showSnackBar(const SnackBar(
+        content: Text("Account not selected"),
+        backgroundColor: Colors.red,
+      ));
+    }
+  }
+
   // Log Out
   Future<void> logOut() async {
     try {
-      await _firebaseAuth.signOut();
+      await firebaseAuth.signOut();
+      await googleSignIn.signOut();
     } on FirebaseAuthException catch (error) {
       Keys.scaffoldMessengerKey.currentState!.showSnackBar(
         SnackBar(
-          content: Text(error.code),
+          content: Text(error.toString()),
           backgroundColor: Colors.red,
         ),
       );
@@ -127,7 +160,7 @@ class AuthProvider extends ChangeNotifier {
                   onPressed: () async {
                     final navigator = Navigator.pop(context);
                     try {
-                      await _firebaseAuth.sendPasswordResetEmail(
+                      await firebaseAuth.sendPasswordResetEmail(
                           email: controllerResetPassword.text);
                       Keys.scaffoldMessengerKey.currentState!.showSnackBar(
                         const SnackBar(

@@ -55,6 +55,10 @@ dependencies:
   firebase_database: ^10.1.2
   # Cloud Firestore
   cloud_firestore: ^4.6.0
+  # Sign In Google
+  google_sign_in: ^6.1.0  
+  # Icon Awesome
+  font_awesome_flutter: ^10.4.0
 
 
 flutter_native_splash:

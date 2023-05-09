@@ -23,6 +23,9 @@ class AuthButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(iconData),
+              const SizedBox(
+                width: 8,
+              ),
               Text(title),
             ],
           ),
