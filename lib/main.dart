@@ -50,11 +50,6 @@ class MyApp extends StatelessWidget {
             }
           },
         ),
-        // StreamProvider.value(
-        //   value: Auth.firebaseUserStream,
-        //   initialData: null,
-        //   child: const Wrapper(),
-        // ),
       ),
     );
   }

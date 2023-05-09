@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,17 +31,20 @@ class AuthProvider extends ChangeNotifier {
   Future<void> authenticate() async {
     UserCredential userCredential;
     try {
+      // Sign In
       if (_authType == AuthType.signIn) {
         userCredential = await _firebaseAuth.signInWithEmailAndPassword(
           email: controllerEmail.text,
           password: controllerPassword.text,
         );
       }
+      // Sign Up
       if (_authType == AuthType.signUp) {
         userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: controllerEmail.text,
           password: controllerPassword.text,
         );
+        await userCredential.user!.sendEmailVerification();
         firebaseFirestore
             .collection("admin_data")
             .doc(userCredential.user!.uid)
@@ -63,6 +68,26 @@ class AuthProvider extends ChangeNotifier {
           backgroundColor: Colors.red,
         ),
       );
+    }
+  }
+
+  bool? emailVerified;
+  // Memperbarui status email verifikasi state
+  Future<void> updateEmailVerificationState() async {
+    String timerCalled = 'Timer Called';
+    emailVerified = _firebaseAuth.currentUser!.emailVerified;
+    // Akan me reload otomatis 3 detik apabila email belum diverifikasi
+    if (!emailVerified!) {
+      Timer.periodic(const Duration(seconds: 3), (timer) async {
+        debugPrint(timerCalled);
+        await _firebaseAuth.currentUser?.reload();
+        final user = _firebaseAuth.currentUser;
+        if (user!.emailVerified) {
+          emailVerified = user.emailVerified;
+          timer.cancel; // Ketika Sudah diverifikasi akan berhenti timernya
+          notifyListeners();
+        }
+      });
     }
   }
 

@@ -7,6 +7,7 @@ import 'package:perpustakaan_smkn_8_kota_tangerang/view/member_data_screen.dart'
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/profile_screen.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/report_screen.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/transaction_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../util/theme.dart';
 import '../widget/header_home_screen.dart';
@@ -22,6 +23,13 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
 
   final User? user = AuthProvider().currentUser;
+
+  @override
+  void didChangeDependencies() {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    authProvider.updateEmailVerificationState();
+    super.didChangeDependencies();
+  }
 
   Widget? boddy() {
     switch (selectedIndex) {
@@ -165,10 +173,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffEFEFEF),
-      body: boddy(),
-      bottomNavigationBar: bottomNav(),
-    );
+    return Consumer<AuthProvider>(builder: (context, provider, _) {
+      return Scaffold(
+        backgroundColor: const Color(0xffEFEFEF),
+        body: provider.emailVerified ?? true
+            ? boddy()
+            : const Center(child: Text('Email Is Not Verified')),
+        bottomNavigationBar: bottomNav(),
+      );
+    });
   }
 }
