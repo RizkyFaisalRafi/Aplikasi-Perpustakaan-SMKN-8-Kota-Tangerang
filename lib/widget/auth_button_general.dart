@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/auth_provider.dart';
 
 class AuthButtonGeneral extends StatelessWidget {
-  final String title;
+  final String titleAtas;
+  final String titleBawah;
   final Color backgroundColor;
   final Color fontColor;
   final FontWeight fontWeight;
@@ -10,7 +14,8 @@ class AuthButtonGeneral extends StatelessWidget {
   const AuthButtonGeneral({
     super.key,
     required this.backgroundColor,
-    required this.title,
+    required this.titleAtas,
+    required this.titleBawah,
     required this.fontWeight,
     required this.fontColor,
     this.onTap,
@@ -18,30 +23,38 @@ class AuthButtonGeneral extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: double.infinity,
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(12), boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.5),
-          spreadRadius: 1,
-          blurRadius: 2,
-          offset: const Offset(0, 0),
+    return Consumer<AuthProvider>(builder: (context, provider, _) {
+      return Container(
+        height: 50,
+        width: double.infinity,
+        decoration:
+            BoxDecoration(borderRadius: BorderRadius.circular(12), boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: const Offset(0, 0),
+          ),
+        ]),
+        child: TextButton(
+          onPressed: onTap,
+          style: TextButton.styleFrom(
+              backgroundColor: backgroundColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12))),
+          child: provider.authType == AuthType.signUp
+              ? Text(
+                  titleAtas,
+                  style: TextStyle(
+                      fontSize: 16, fontWeight: fontWeight, color: fontColor),
+                )
+              : Text(
+                  titleBawah,
+                  style: TextStyle(
+                      fontSize: 16, fontWeight: fontWeight, color: fontColor),
+                ),
         ),
-      ]),
-      child: TextButton(
-        onPressed: onTap,
-        style: TextButton.styleFrom(
-            backgroundColor: backgroundColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12))),
-        child: Text(
-          title,
-          style:
-              TextStyle(fontSize: 16, fontWeight: fontWeight, color: fontColor),
-        ),
-      ),
-    );
+      );
+    });
   }
 }

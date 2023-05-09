@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/login_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/email_pass_screen.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/widget/auth_button.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -28,7 +28,7 @@ class AuthScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
+                      builder: (context) => const EmailPassScreen(),
                     ),
                   );
                 },
