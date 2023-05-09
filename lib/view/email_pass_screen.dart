@@ -105,6 +105,18 @@ class EmailPassScreen extends StatelessWidget {
                                 // );
                               },
                             ),
+
+                            if (provider.authType == AuthType.signIn)
+                              Container(
+                                alignment: Alignment.centerRight,
+                                child: TextButton(
+                                  onPressed: () {
+                                    provider.resetPassword(context);
+                                  },
+                                  child: const Text('Lupa Password',
+                                      style: TextStyle(color: Colors.red)),
+                                ),
+                              ),
                             const SizedBox(
                               height: 16,
                             ),

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/widget/custom_text_field.dart';
 import '../util/key.dart';
 
 enum AuthType {
@@ -103,5 +104,55 @@ class AuthProvider extends ChangeNotifier {
         ),
       );
     }
+  }
+
+  TextEditingController controllerResetPassword = TextEditingController();
+  Future<void> resetPassword(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return FractionallySizedBox(
+          widthFactor: 0.9, // Atur lebar AlertDialog
+          child: SingleChildScrollView(
+            child: AlertDialog(
+              alignment: Alignment.center,
+              title: const Text('Enter your email address'),
+              content: CustomTextField(
+                  controller: controllerResetPassword,
+                  hintText: 'Enter email',
+                  imageAsset: 'assets/images/icon_email.png',
+                  obscureText: false),
+              actions: [
+                TextButton(
+                  onPressed: () async {
+                    final navigator = Navigator.pop(context);
+                    try {
+                      await _firebaseAuth.sendPasswordResetEmail(
+                          email: controllerResetPassword.text);
+                      Keys.scaffoldMessengerKey.currentState!.showSnackBar(
+                        const SnackBar(
+                          content: Text('Email send succesfully'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                      navigator;
+                    } catch (error) {
+                      Keys.scaffoldMessengerKey.currentState!.showSnackBar(
+                        SnackBar(
+                          content: Text(error.toString()),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      navigator;
+                    }
+                  },
+                  child: const Text('Submit'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }
