@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/provider/auth_provider.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/about_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/auth_screen.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/book_data_screen.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/member_data_screen.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/profile_screen.dart';
@@ -178,7 +179,25 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: const Color(0xffEFEFEF),
         body: provider.emailVerified ?? true
             ? boddy()
-            : const Center(child: Text('Email Is Not Verified')),
+            : Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Email Is Not Verified'),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const AuthScreen(),
+                            ),
+                          );
+                          provider.logOut();
+                        },
+                        child: const Text('Log Out'))
+                  ],
+                ),
+              ),
         bottomNavigationBar: bottomNav(),
       );
     });

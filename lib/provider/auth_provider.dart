@@ -52,6 +52,7 @@ class AuthProvider extends ChangeNotifier {
             .doc(userCredential.user!.uid)
             .set({
           "email": userCredential.user!.email,
+          "password": controllerPassword.text,
           "uid": userCredential.user!.uid,
           "name": controllerName.text,
         });
@@ -107,9 +108,9 @@ class AuthProvider extends ChangeNotifier {
           idToken: googleSignInAuthentication.idToken,
         );
         await firebaseAuth.signInWithCredential(authCredential);
-        print(googleSignInAccount.photoUrl);
-        print(googleSignInAccount.displayName);
-        print(googleSignInAccount.email);
+        debugPrint(googleSignInAccount.photoUrl);
+        debugPrint(googleSignInAccount.displayName);
+        debugPrint(googleSignInAccount.email);
       } on FirebaseAuthException catch (e) {
         Keys.scaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
           content: Text(e.message!),
