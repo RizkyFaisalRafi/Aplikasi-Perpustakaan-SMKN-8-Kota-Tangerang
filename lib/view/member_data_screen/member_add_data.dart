@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/model/member_data.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/provider/firestore_services_provider.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/provider/services_member_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../util/theme.dart';
