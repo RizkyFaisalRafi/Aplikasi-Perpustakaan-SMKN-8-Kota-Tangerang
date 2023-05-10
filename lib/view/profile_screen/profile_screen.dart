@@ -18,87 +18,79 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffEFEFEF),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 24,
-              ),
-              const HeaderProfile(),
-              const SizedBox(
-                height: 28,
-              ),
+      // backgroundColor: const Color(0xffEFEFEF),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background.png"),
+            fit: BoxFit.fill,
+          ),
+        ),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 24,
+                ),
+                const HeaderProfile(),
+                const SizedBox(
+                  height: 28,
+                ),
 
-              // Hubungi Developer
-              MenuProfile(
-                image: 'assets/images/icon_calldev.png',
-                title: 'Hubungi Developer',
-                subTitle: 'Sampaikan kendala, kritik, dan saran Anda.',
-                onTap: () {
-                  {
+                // Hubungi Developer
+                MenuProfile(
+                  image: 'assets/images/icon_calldev.png',
+                  title: 'Hubungi Developer',
+                  subTitle: 'Sampaikan kendala, kritik, dan saran Anda.',
+                  onTap: () {
+                    {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const CallDevScreen(),
+                        ),
+                      );
+                    }
+                  },
+                ),
+
+                // Tentang Aplikasi
+                MenuProfile(
+                  image: 'assets/images/icon_about_app.png',
+                  title: 'Tentang Aplikasi',
+                  subTitle: 'Lihat informasi lengkap tentang aplikasi.',
+                  onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const CallDevScreen(),
+                        builder: (context) => const AboutScreen(),
                       ),
                     );
-                  }
-                },
-              ),
-
-              // Tentang Aplikasi
-              MenuProfile(
-                image: 'assets/images/icon_about_app.png',
-                title: 'Tentang Aplikasi',
-                subTitle: 'Lihat informasi lengkap tentang aplikasi.',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AboutScreen(),
-                    ),
-                  );
-                },
-              ),
-
-              // Rate Aplikasi
-              MenuProfile(
-                image: 'assets/images/icon_rate_app.png',
-                title: 'Rate Aplikasi',
-                subTitle: 'Menilai aplikasi di Google Play Store.',
-                onTap: () {},
-              ),
-              
-              DropdownButton<String?>(
-                  isExpanded: true,
-                  value: selectedValue,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedValue = value;
-                    });
                   },
-                  items: ["Toyota", "Daihatsu", "Honda", "Suzuki"]
-                      .map<DropdownMenuItem<String?>>(
-                        (e) => DropdownMenuItem(
-                          child: Text(e.toString()),
-                          value: e,
-                        ),
-                      )
-                      .toList()),
+                ),
 
-              // Keluar Akun
-              Consumer<AuthProvider>(builder: (context, provider, _) {
-                return MenuProfile(
-                  image: 'assets/images/icon_logout.png',
-                  title: 'Keluar Akun',
-                  subTitle: 'Klik untuk keluar dari akun Anda.',
-                  onTap: () => provider.logOut(),
-                );
-              }),
-              // Image.asset('assets/images/gradient_bottom.png')
-            ],
+                // Rate Aplikasi
+                MenuProfile(
+                  image: 'assets/images/icon_rate_app.png',
+                  title: 'Rate Aplikasi',
+                  subTitle: 'Menilai aplikasi di Google Play Store.',
+                  onTap: () {},
+                ),
+
+                // Keluar Akun
+                Consumer<AuthProvider>(builder: (context, provider, _) {
+                  return MenuProfile(
+                    image: 'assets/images/icon_logout.png',
+                    title: 'Keluar Akun',
+                    subTitle: 'Klik untuk keluar dari akun Anda.',
+                    onTap: () => provider.logOut(),
+                  );
+                }),
+              ],
+            ),
           ),
         ),
       ),

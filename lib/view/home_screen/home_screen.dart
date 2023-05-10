@@ -143,6 +143,10 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           const HeaderHomeScreen(),
           grid(),
+          Image.asset(
+            'assets/images/gradient_bottom.png',
+            width: double.infinity,
+          )
         ],
       ),
     );

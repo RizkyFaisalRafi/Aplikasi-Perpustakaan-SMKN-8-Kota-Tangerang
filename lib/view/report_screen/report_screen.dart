@@ -20,34 +20,44 @@ class ReportScreen extends StatelessWidget {
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) {
-                    ReportData reportData = ReportData(
-                      docId: snapshot.data!.docs[index].id,
-                      studentsName: snapshot.data!.docs[index]["student_name"],
-                      nameBook: snapshot.data!.docs[index]["name_book"],
-                      borrowDate: snapshot.data!.docs[index]["borrow_date"],
-                      returnDate: snapshot.data!.docs[index]["return_date"],
-                    );
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ReportDataDetail(
-                              reportData: reportData,
+              return Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                  image: AssetImage("assets/images/background.png"),
+                  fit: BoxFit.fill,
+                )),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      ReportData reportData = ReportData(
+                        docId: snapshot.data!.docs[index].id,
+                        studentsName: snapshot.data!.docs[index]
+                            ["student_name"],
+                        nameBook: snapshot.data!.docs[index]["name_book"],
+                        borrowDate: snapshot.data!.docs[index]["borrow_date"],
+                        returnDate: snapshot.data!.docs[index]["return_date"],
+                      );
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ReportDataDetail(
+                                reportData: reportData,
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      child: ReportTile(
-                        reportData: reportData,
-                      ),
-                    );
-                  },
+                          );
+                        },
+                        child: ReportTile(
+                          reportData: reportData,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               );
             } else {
