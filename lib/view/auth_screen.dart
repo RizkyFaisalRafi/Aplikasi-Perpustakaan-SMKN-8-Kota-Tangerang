@@ -4,8 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/provider/auth_provider.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/email_pass_screen.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/view/home_screen.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/widget/auth_button.dart';
 import 'package:provider/provider.dart';
+
+import '../widget/auth_screen_button.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
@@ -32,7 +33,7 @@ class AuthScreen extends StatelessWidget {
                         fontSize: 20,
                       ),
                     ),
-                    AuthButton(
+                    AuthScreenButton(
                       iconData: Icons.email,
                       title: 'Email/Password',
                       onTap: () {
@@ -45,7 +46,7 @@ class AuthScreen extends StatelessWidget {
                       },
                     ),
                     Consumer<AuthProvider>(builder: (context, provider, _) {
-                      return AuthButton(
+                      return AuthScreenButton(
                         iconData: FontAwesomeIcons.google,
                         title: 'Google',
                         onTap: () {

@@ -14,6 +14,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  String? selectedValue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,6 +70,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 subTitle: 'Menilai aplikasi di Google Play Store.',
                 onTap: () {},
               ),
+              
+              DropdownButton<String?>(
+                  isExpanded: true,
+                  value: selectedValue,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedValue = value;
+                    });
+                  },
+                  items: ["Toyota", "Daihatsu", "Honda", "Suzuki"]
+                      .map<DropdownMenuItem<String?>>(
+                        (e) => DropdownMenuItem(
+                          child: Text(e.toString()),
+                          value: e,
+                        ),
+                      )
+                      .toList()),
 
               // Keluar Akun
               Consumer<AuthProvider>(builder: (context, provider, _) {

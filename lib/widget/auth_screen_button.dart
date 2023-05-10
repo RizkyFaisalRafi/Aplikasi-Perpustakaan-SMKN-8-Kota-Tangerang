@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class AuthButton extends StatelessWidget {
+class AuthScreenButton extends StatelessWidget {
   final IconData iconData;
   final String title;
   final Function()? onTap;
-  const AuthButton(
+  const AuthScreenButton(
       {super.key, required this.iconData, required this.title, this.onTap});
 
   @override
