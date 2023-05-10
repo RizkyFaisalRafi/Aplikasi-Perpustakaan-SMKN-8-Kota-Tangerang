@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/model/transaction_data.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/widget/transaction_tile.dart';
-import '../util/theme.dart';
-import 'add_data/transaction_add_data.dart';
-import 'detail_screen/transaction_data_detail.dart';
+import '../../util/theme.dart';
+import 'transaction_add_data.dart';
+import 'transaction_data_detail.dart';
 
 class TransactionScreen extends StatelessWidget {
   const TransactionScreen({super.key});

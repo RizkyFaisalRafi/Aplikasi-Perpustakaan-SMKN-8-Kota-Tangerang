@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/model/book_data.dart';
 
-import '../../model/member_data.dart';
 import '../../util/theme.dart';
-import '../add_data/member_add_data.dart';
+import 'book_add_data.dart';
 
-class MemberDataDetail extends StatelessWidget {
-  final MemberData memberData;
+class BookDataDetail extends StatelessWidget {
+  final BookData bookData;
 
-  const MemberDataDetail({super.key, required this.memberData});
+  const BookDataDetail({super.key, required this.bookData});
 
   /// Change Button
   Widget changeButton(BuildContext context) {
@@ -30,8 +30,8 @@ class MemberDataDetail extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MemberAddData(
-                memberData: memberData,
+              builder: (context) => BookAddData(
+                bookData: bookData,
               ),
             ),
           );
@@ -69,8 +69,8 @@ class MemberDataDetail extends StatelessWidget {
         onPressed: () async {
           try {
             await FirebaseFirestore.instance
-                .collection('member_data')
-                .doc(memberData.docId)
+                .collection('book_data')
+                .doc(bookData.docId)
                 .delete();
             if (context.mounted) {
               Navigator.pop(context);
@@ -128,49 +128,49 @@ class MemberDataDetail extends StatelessWidget {
 
             Card(
               child: ListTile(
-                title: const Text('Nama Siswa'),
-                trailing: Text(memberData.studentsName ?? 'Null'),
+                title: const Text('Nama Buku'),
+                trailing: Text(bookData.bookName ?? 'Null'),
               ),
             ),
 
             Card(
               child: ListTile(
-                title: const Text('NIS'),
-                trailing: Text(memberData.nis ?? 'Null'),
+                title: const Text('Pengarang'),
+                trailing: Text(bookData.author ?? 'Null'),
               ),
             ),
             Card(
               child: ListTile(
-                title: const Text('Tempat Lahir'),
-                trailing: Text(memberData.placeOfBirth ?? 'Null'),
-              ),
-            ),
-
-            Card(
-              child: ListTile(
-                title: const Text('Tanggal Lahir'),
-                trailing: Text(memberData.dateOfBirth ?? 'Null'),
+                title: const Text('Penerbit'),
+                trailing: Text(bookData.publisher ?? 'Null'),
               ),
             ),
 
             Card(
               child: ListTile(
-                title: const Text('Jenis Kelamin'),
-                trailing: Text(memberData.gender ?? 'Null'),
+                title: const Text('Tahun Buku'),
+                trailing: Text(bookData.yearsOfBook ?? 'Null'),
               ),
             ),
 
             Card(
               child: ListTile(
-                title: const Text('Kelas'),
-                trailing: Text(memberData.studentClass ?? 'Null'),
+                title: const Text('ISBN'),
+                trailing: Text(bookData.isbn ?? 'Null'),
               ),
             ),
 
             Card(
               child: ListTile(
-                title: const Text('Nomor Telepon'),
-                trailing: Text(memberData.phoneNumber ?? 'Null'),
+                title: const Text('Jumlah Buku'),
+                trailing: Text(bookData.numberOfBooks ?? 'Null'),
+              ),
+            ),
+
+            Card(
+              child: ListTile(
+                title: const Text('Rak'),
+                trailing: Text(bookData.racks ?? 'Null'),
               ),
             ),
 

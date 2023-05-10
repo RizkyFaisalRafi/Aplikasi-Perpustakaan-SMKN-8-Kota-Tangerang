@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/model/report_data.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/util/theme.dart';
 
-import '../widget/report_tile.dart';
-import 'detail_screen/report_data_detail.dart';
+import '../../widget/report_tile.dart';
+import 'report_data_detail.dart';
 
 class ReportScreen extends StatelessWidget {
   const ReportScreen({Key? key}) : super(key: key);

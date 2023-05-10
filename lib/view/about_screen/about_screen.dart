@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../util/theme.dart';
+import '../../util/theme.dart';
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({Key? key}) : super(key: key);

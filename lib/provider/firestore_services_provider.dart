@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/member_data_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/member_data_screen/member_data_screen.dart';
 
 import '../model/member_data.dart';
 

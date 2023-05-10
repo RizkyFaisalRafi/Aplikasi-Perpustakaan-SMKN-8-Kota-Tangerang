@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/add_data/member_add_data.dart';
 
-import '../model/member_data.dart';
-import '../util/theme.dart';
-import '../widget/member_tile.dart';
-import 'detail_screen/member_data_detail.dart';
+import '../../model/member_data.dart';
+import '../../util/theme.dart';
+import '../../widget/member_tile.dart';
+import '../member_data_screen/member_add_data.dart';
+import 'member_data_detail.dart';
 
 class MemberDataScreen extends StatelessWidget {
   const MemberDataScreen({super.key});

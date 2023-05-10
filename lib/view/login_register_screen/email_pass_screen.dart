@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/home_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/home_screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/auth_provider.dart';
-import '../util/theme.dart';
-import '../widget/auth_emailpass_button.dart';
-import '../widget/custom_text_field.dart';
-import '../widget/header_signin_signup.dart';
+import '../../provider/auth_provider.dart';
+import '../../util/theme.dart';
+import '../../widget/auth_emailpass_button.dart';
+import '../../widget/custom_text_field.dart';
+import '../../widget/header_signin_signup.dart';
 
 import 'package:flutter/material.dart';
 

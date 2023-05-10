@@ -1,17 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/provider/auth_provider.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/about_screen.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/auth_screen.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/book_data_screen.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/member_data_screen.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/profile_screen.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/report_screen.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/transaction_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/about_screen/about_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/auth_screen/auth_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/book_data_screen/book_data_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/member_data_screen/member_data_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/profile_screen/profile_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/report_screen/report_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/transaction_screen/transaction_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../util/theme.dart';
-import '../widget/header_home_screen.dart';
+import '../../util/theme.dart';
+import '../../widget/header_home_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

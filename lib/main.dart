@@ -6,8 +6,8 @@ import 'package:perpustakaan_smkn_8_kota_tangerang/provider/auth_provider.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/provider/firestore_services_provider.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/util/theme.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/util/key.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/auth_screen.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/home_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/auth_screen/auth_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/home_screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';

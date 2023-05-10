@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/about_screen.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/call_dev_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/about_screen/about_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/profile_screen/call_dev_screen.dart';
 import 'package:provider/provider.dart';
-import '../provider/auth_provider.dart';
-import '../widget/menu_profile.dart';
-import '../widget/header_profile.dart';
+import '../../provider/auth_provider.dart';
+import '../../widget/menu_profile.dart';
+import '../../widget/header_profile.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);

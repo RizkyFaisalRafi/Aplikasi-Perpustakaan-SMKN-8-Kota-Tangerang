@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/provider/auth_provider.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/email_pass_screen.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/home_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/login_register_screen/email_pass_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/home_screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../widget/auth_screen_button.dart';
+import '../../widget/auth_screen_button.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});

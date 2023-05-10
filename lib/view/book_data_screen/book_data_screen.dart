@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/util/theme.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/add_data/book_add_data.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/detail_screen/book_data_detail.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/book_data_screen/book_add_data.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/book_data_screen/book_data_detail.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/widget/book_tile.dart';
 import 'package:perpustakaan_smkn_8_kota_tangerang/model/book_data.dart';
 

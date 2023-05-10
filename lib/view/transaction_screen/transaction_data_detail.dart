@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:perpustakaan_smkn_8_kota_tangerang/view/transaction_screen.dart';
+import 'package:perpustakaan_smkn_8_kota_tangerang/view/transaction_screen/transaction_screen.dart';
 import '../../model/transaction_data.dart';
 import '../../util/theme.dart';
-import '../add_data/transaction_add_data.dart';
+import 'transaction_add_data.dart';
 
 class TransactionDataDetail extends StatelessWidget {
   final TransactionData transactionData;
