@@ -6,8 +6,16 @@ import '../../util/theme.dart';
 import 'transaction_add_data.dart';
 import 'transaction_data_detail.dart';
 
-class TransactionScreen extends StatelessWidget {
+class TransactionScreen extends StatefulWidget {
   const TransactionScreen({super.key});
+
+  @override
+  State<TransactionScreen> createState() => _TransactionScreenState();
+}
+
+class _TransactionScreenState extends State<TransactionScreen> {
+  TextEditingController controllerSearch = TextEditingController();
+  String? query = '';
 
   @override
   Widget build(BuildContext context) {
@@ -28,49 +36,113 @@ class TransactionScreen extends StatelessWidget {
         },
         child: const Icon(Icons.add),
       ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection("transaction_data")
-            .orderBy("student_name", descending: false)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                itemCount: snapshot.data?.docs.length,
-                itemBuilder: (context, index) {
-                  TransactionData transactionData = TransactionData(
-                    studentsName: snapshot.data!.docs[index]["student_name"],
-                    nameBook: snapshot.data!.docs[index]["name_book"],
-                    borrowDate: snapshot.data!.docs[index]["borrow_date"],
-                    returnDate: snapshot.data!.docs[index]["return_date"],
-                    docId: snapshot.data!.docs[index].id,
-                  );
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TransactionDataDetail(
-                            transactionData: transactionData,
+      body: Column(
+        children: [
+          // Search
+          Container(
+            width: double.infinity,
+            height: 100,
+            color: whiteColor,
+            child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                  height: 50,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  decoration: BoxDecoration(
+                      color: const Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        const Icon(Icons.search_rounded),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            controller: controllerSearch,
+                            obscureText: false,
+                            style: const TextStyle(color: Colors.black),
+                            decoration: const InputDecoration.collapsed(
+                              hintText: 'Search',
+                              hintStyle: TextStyle(
+                                color: Color(0xff949494),
+                              ),
+                            ),
+                            onChanged: (val) {
+                              setState(() {
+                                // searchFromFirebase(val);
+                                query = val;
+                              });
+                            },
                           ),
                         ),
-                      );
-                    },
-                    child: TransactionTile(
-                      transactionData: transactionData,
+                      ],
+                    ),
+                  ),
+                )),
+          ),
+
+          const SizedBox(
+            height: 12,
+          ),
+
+          // List
+          Expanded(
+            child: StreamBuilder(
+              stream: (query != '' && query != null)
+                  ? FirebaseFirestore
+                      .instance // Menampilkan semua data berdasarkan search_keywords
+                      .collection("transaction_data")
+                      .where("search_keywords",
+                          arrayContains: query!.toLowerCase())
+                      .snapshots()
+                  : FirebaseFirestore
+                      .instance // Menampilkan semua data berdasarkan collection('member_data')
+                      .collection('transaction_data')
+                      .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                      itemCount: snapshot.data?.docs.length,
+                      itemBuilder: (context, index) {
+                        TransactionData transactionData = TransactionData(
+                          studentsName: snapshot.data!.docs[index]
+                              ["student_name"],
+                          nameBook: snapshot.data!.docs[index]["name_book"],
+                          borrowDate: snapshot.data!.docs[index]["borrow_date"],
+                          returnDate: snapshot.data!.docs[index]["return_date"],
+                          docId: snapshot.data!.docs[index].id,
+                        );
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TransactionDataDetail(
+                                  transactionData: transactionData,
+                                ),
+                              ),
+                            );
+                          },
+                          child: TransactionTile(
+                            transactionData: transactionData,
+                          ),
+                        );
+                      },
                     ),
                   );
-                },
-              ),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

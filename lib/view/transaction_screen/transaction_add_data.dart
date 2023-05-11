@@ -6,7 +6,6 @@ import '../../util/theme.dart';
 
 class TransactionAddData extends StatefulWidget {
   final TransactionData? transactionData;
-
   const TransactionAddData({super.key, this.transactionData});
 
   @override
@@ -24,41 +23,71 @@ class _TransactionAddDataState extends State<TransactionAddData> {
 
   // Create
   sendMemberOnFirebase() async {
-    setState(() {
-      isLoading = true;
-    });
-    final response =
-        await FirebaseFirestore.instance.collection('transaction_data').add({
-      "student_name": studentsNameController.text,
-      "name_book": nameBookController.text,
-      "borrow_date": borrowDateController.text,
-      "return_date": returnDateController.text,
-    });
-    studentsNameController = TextEditingController();
-    nameBookController = TextEditingController();
-    borrowDateController = TextEditingController();
-    returnDateController = TextEditingController();
+    final studentName = studentsNameController.text;
+    final List letters = studentName.split(''); // split untuk memisahkan kata
+    final List searchKeywords =
+        []; // Inisialisasi list kosong untuk menampung search keywords
+    String currentKeyword =
+        ''; // Inisialisasi currentKeyword dengan string kosong
 
-    setState(() {
-      isLoading = false;
-    });
+    try {
+      for (var i = 0; i < letters.length; i++) {
+        currentKeyword += letters[i]
+            .toLowerCase(); // Menambahkan huruf baru ke currentKeyword dan menjadikan huruf kecil semua
+        searchKeywords.add(
+            currentKeyword); // Menambahkan currentKeyword ke dalam list searchKeywords
+      }
+      setState(() {
+        isLoading = true;
+      });
+      final response =
+          await FirebaseFirestore.instance.collection('transaction_data').add({
+        "student_name": studentsNameController.text,
+        "name_book": nameBookController.text,
+        "borrow_date": borrowDateController.text,
+        "return_date": returnDateController.text,
+        "search_keywords": searchKeywords,
+      });
+      studentsNameController = TextEditingController();
+      nameBookController = TextEditingController();
+      borrowDateController = TextEditingController();
+      returnDateController = TextEditingController();
 
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Data Added Successfully'),
-          backgroundColor: Colors.green,
-        ),
-      );
-      Navigator.pop(context);
+      setState(() {
+        isLoading = false;
+      });
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Data Added Successfully'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        Navigator.pop(context);
+      }
+      debugPrint(response.id);
+    } catch (e) {
+      debugPrint(e.toString());
     }
-
-    debugPrint(response.id);
   }
 
   // Update
   updateMember() async {
+    final studentName = studentsNameController.text;
+    final List letters = studentName.split(''); // split untuk memisahkan kata
+    final List searchKeywords =
+        []; // Inisialisasi list kosong untuk menampung search keywords
+    String currentKeyword =
+        ''; // Inisialisasi currentKeyword dengan string kosong
+
     try {
+      for (var i = 0; i < letters.length; i++) {
+        currentKeyword += letters[i]
+            .toLowerCase(); // Menambahkan huruf baru ke currentKeyword dan menjadikan huruf kecil semua
+        searchKeywords.add(
+            currentKeyword); // Menambahkan currentKeyword ke dalam list searchKeywords
+      }
       FirebaseFirestore.instance
           .collection('transaction_data')
           .doc(widget.transactionData!.docId)
@@ -67,6 +96,7 @@ class _TransactionAddDataState extends State<TransactionAddData> {
         "name_book": nameBookController.text,
         "borrow_date": borrowDateController.text,
         "return_date": returnDateController.text,
+        "search_keywords": searchKeywords,
       });
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -284,7 +314,6 @@ class _TransactionAddDataState extends State<TransactionAddData> {
                 const SizedBox(
                   height: 16,
                 ),
-
                 addDataButton(),
               ],
             ),
