@@ -6,7 +6,6 @@ import '../model/member_data.dart';
 
 class FirestoreServicesProvider with ChangeNotifier {
   bool isLoading = false;
-  // late final MemberData? memberData;
 
   TextEditingController studentsNameController = TextEditingController();
   TextEditingController nisController = TextEditingController();
@@ -19,16 +18,31 @@ class FirestoreServicesProvider with ChangeNotifier {
   // Create member_data
   Future<void> sendMemberOnFirebase(
       String? gender, BuildContext context) async {
+    final studentName = studentsNameController.text;
+    final List letters = studentName.split('');
+    final List searchKeywords =
+        []; // Inisialisasi list kosong untuk menampung search keywords
+    String currentKeyword =
+        ''; // Inisialisasi currentKeyword dengan string kosong
+
+    for (var i = 0; i < letters.length; i++) {
+      currentKeyword += letters[i]
+          .toLowerCase(); // Menambahkan huruf baru ke currentKeyword dan menjadikan huruf kecil semua
+      searchKeywords.add(
+          currentKeyword); // Menambahkan currentKeyword ke dalam list searchKeywords
+    }
     isLoading = true;
+
     final response =
         await FirebaseFirestore.instance.collection('member_data').add({
-      "student_name": studentsNameController.text,
+      "student_name": studentName,
       "nis": nisController.text,
       "place_of_birth": placeOfBirthController.text,
       "date_of_birth": dateOfBirthController.text,
       "gender": gender,
       "student_class": studentClassController.text,
       "phone_number": phoneNumberController.text,
+      "search_keywords": searchKeywords,
     });
     studentsNameController = TextEditingController();
     nisController = TextEditingController();
@@ -57,7 +71,20 @@ class FirestoreServicesProvider with ChangeNotifier {
   // Update member_data
   Future<void> updateMember(
       MemberData memberData, String? gender, BuildContext context) async {
+    final studentName = studentsNameController.text;
+    final List letters = studentName.split('');
+    final List searchKeywords =
+        []; // Inisialisasi list kosong untuk menampung search keywords
+    String currentKeyword =
+        ''; // Inisialisasi currentKeyword dengan string kosong
+
     try {
+      for (var i = 0; i < letters.length; i++) {
+        currentKeyword += letters[i]
+            .toLowerCase(); // Menambahkan huruf baru ke currentKeyword dan menjadikan huruf kecil semua
+        searchKeywords.add(
+            currentKeyword); // Menambahkan currentKeyword ke dalam list searchKeywords
+      }
       FirebaseFirestore.instance
           .collection('member_data')
           .doc(memberData.docId)
@@ -69,6 +96,7 @@ class FirestoreServicesProvider with ChangeNotifier {
         "gender": gender,
         "student_class": studentClassController.text,
         "phone_number": phoneNumberController.text,
+        "search_keywords": searchKeywords,
       });
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

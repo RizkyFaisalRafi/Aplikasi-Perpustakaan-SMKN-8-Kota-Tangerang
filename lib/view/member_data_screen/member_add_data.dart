@@ -19,38 +19,13 @@ class _MemberAddDataState extends State<MemberAddData> {
   final _formKey = GlobalKey<FormState>();
   final emailRegExp = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-  // TextEditingController studentsNameController = TextEditingController();
-  // TextEditingController nisController = TextEditingController();
-  // TextEditingController placeOfBirthController = TextEditingController();
-  // TextEditingController dateOfBirthController = TextEditingController();
-  // TextEditingController genderController = TextEditingController();
-  // TextEditingController studentClassController = TextEditingController();
-  // TextEditingController phoneNumberController = TextEditingController();
+
   bool isLoading = false;
   String? selectedGender = "";
   final genderlist = [
     "Pria",
     "Wanita",
   ];
-
-  // @override
-  // void initState() {
-  //   if (widget.memberData != null) {
-  //     studentsNameController =
-  //         TextEditingController(text: widget.memberData!.studentsName);
-  //     nisController = TextEditingController(text: widget.memberData!.nis);
-  //     placeOfBirthController =
-  //         TextEditingController(text: widget.memberData!.placeOfBirth);
-  //     dateOfBirthController =
-  //         TextEditingController(text: widget.memberData!.dateOfBirth);
-  //     genderController = TextEditingController(text: widget.memberData!.gender);
-  //     studentClassController =
-  //         TextEditingController(text: widget.memberData!.studentClass);
-  //     phoneNumberController =
-  //         TextEditingController(text: widget.memberData!.phoneNumber);
-  //   }
-  //   super.initState();
-  // }
 
   @override
   void initState() {
@@ -372,7 +347,6 @@ class _MemberAddDataState extends State<MemberAddData> {
                               borderRadius: BorderRadius.circular(50)),
                         ),
                       ),
-
                       addDataButton(),
                     ],
                   );
