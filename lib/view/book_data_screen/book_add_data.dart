@@ -27,45 +27,74 @@ class _BookAddDataState extends State<BookAddData> {
   bool isLoading = false;
 
   sendBookOnFirebase() async {
-    setState(() {
-      isLoading = true;
-    });
-    final response =
-        await FirebaseFirestore.instance.collection('book_data').add({
-      "book_name": bookNameController.text,
-      "author": authorController.text,
-      "publisher": publisherController.text,
-      "years_of_book": yearsOfBookController.text,
-      "isbn": isbnController.text,
-      "number_of_books": numberOfBooksController.text,
-      "racks": racksController.text,
-    });
-    bookNameController = TextEditingController();
-    authorController = TextEditingController();
-    publisherController = TextEditingController();
-    yearsOfBookController = TextEditingController();
-    isbnController = TextEditingController();
-    numberOfBooksController = TextEditingController();
-    racksController = TextEditingController();
-    setState(() {
-      isLoading = false;
-    });
+    final bookName = bookNameController.text;
+    final List letters = bookName.split(''); // split untuk memisahkan kata
+    final List searchKeywords =
+        []; // Inisialisasi list kosong untuk menampung search keywords
+    String currentKeyword =
+        ''; // Inisialisasi currentKeyword dengan string kosong
 
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Data Added Successfully'),
-          backgroundColor: Colors.green,
-        ),
-      );
-      Navigator.pop(context);
+    try {
+      for (var i = 0; i < letters.length; i++) {
+        currentKeyword += letters[i]
+            .toLowerCase(); // Menambahkan huruf baru ke currentKeyword dan menjadikan huruf kecil semua
+        searchKeywords.add(
+            currentKeyword); // Menambahkan currentKeyword ke dalam list searchKeywords
+      }
+      setState(() {
+        isLoading = true;
+      });
+      final response =
+          await FirebaseFirestore.instance.collection('book_data').add({
+        "book_name": bookName,
+        "author": authorController.text,
+        "publisher": publisherController.text,
+        "years_of_book": yearsOfBookController.text,
+        "isbn": isbnController.text,
+        "number_of_books": numberOfBooksController.text,
+        "racks": racksController.text,
+        "search_keywords": searchKeywords,
+      });
+      bookNameController = TextEditingController();
+      authorController = TextEditingController();
+      publisherController = TextEditingController();
+      yearsOfBookController = TextEditingController();
+      isbnController = TextEditingController();
+      numberOfBooksController = TextEditingController();
+      racksController = TextEditingController();
+      setState(() {
+        isLoading = false;
+      });
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Data Added Successfully'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        Navigator.pop(context);
+      }
+      debugPrint(response.id);
+    } catch (e) {
+      debugPrint(e.toString());
     }
-
-    debugPrint(response.id);
   }
 
   updateBook() async {
+    final bookName = bookNameController.text;
+    final List letters = bookName.split(''); // split untuk memisahkan kata
+    final List searchKeywords =
+        []; // Inisialisasi list kosong untuk menampung search keywords
+    String currentKeyword =
+        ''; // Inisialisasi currentKeyword dengan string kosong
+
     try {
+      for (var i = 0; i < letters.length; i++) {
+        currentKeyword += letters[i]
+            .toLowerCase(); // Menambahkan huruf baru ke currentKeyword dan menjadikan huruf kecil semua
+        searchKeywords.add(
+            currentKeyword); // Menambahkan currentKeyword ke dalam list searchKeywords
+      }
       FirebaseFirestore.instance
           .collection('book_data')
           .doc(widget.bookData!.docId)
@@ -77,6 +106,7 @@ class _BookAddDataState extends State<BookAddData> {
         "isbn": isbnController.text,
         "number_of_books": numberOfBooksController.text,
         "racks": racksController.text,
+        "search_keywords": searchKeywords,
       });
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
