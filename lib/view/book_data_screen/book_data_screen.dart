@@ -82,10 +82,11 @@ class _BookDataScreenState extends State<BookDataScreen> {
                   ),
                 )),
           ),
+          
           const SizedBox(
             height: 12,
           ),
-
+          // List
           Expanded(
             child: StreamBuilder(
               stream: (query != '' && query != null)
@@ -144,6 +145,7 @@ class _BookDataScreenState extends State<BookDataScreen> {
               },
             ),
           ),
+        
         ],
       ),
     );
