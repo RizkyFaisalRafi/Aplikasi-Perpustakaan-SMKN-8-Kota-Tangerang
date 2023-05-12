@@ -48,9 +48,9 @@ dependencies:
   # SplashScreen Flutter Native
   flutter_native_splash: ^2.2.19
   # Menyimpan foto
-  firebase_storage: ^11.1.2
-  # Membuka Foto
-  image_picker: ^0.8.7+4
+  firebase_storage: ^11.2.0
+  # Mengambil Foto dari handphone
+  image_picker: ^0.8.7+5
   # Realtime Database
   firebase_database: ^10.1.2
   # Cloud Firestore
@@ -59,6 +59,8 @@ dependencies:
   google_sign_in: ^6.1.0  
   # Icon Awesome
   font_awesome_flutter: ^10.4.0
+  file_picker: ^5.3.0
+  
 
 
 flutter_native_splash:
