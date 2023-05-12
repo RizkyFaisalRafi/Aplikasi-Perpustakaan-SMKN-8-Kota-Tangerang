@@ -1,11 +1,51 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../model/admin_data.dart';
 import '../provider/auth_provider.dart';
 import '../util/theme.dart';
 
-class HeaderHomeScreen extends StatelessWidget {
+class HeaderHomeScreen extends StatefulWidget {
   const HeaderHomeScreen({super.key});
+
+  @override
+  State<HeaderHomeScreen> createState() => _HeaderHomeScreenState();
+}
+
+class _HeaderHomeScreenState extends State<HeaderHomeScreen> {
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  String? _uid;
+
+  AdminData? adminData;
+
+  void getData() async {
+    User? user = AuthProvider().currentUser;
+    _uid = user?.uid;
+    // print(user?.displayName);
+    final DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection('admin_data')
+        .doc(_uid)
+        .get();
+    if (mounted) {
+      setState(() {
+        adminData = AdminData(
+          name: snapshot.get('name'),
+          email: snapshot.get('email'),
+        );
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +71,7 @@ class HeaderHomeScreen extends StatelessWidget {
                   ),
                   Text(
                     // 'Rizky Faisal Rafi',
-                    user?.email ?? 'User Email',
+                    adminData?.name ?? 'Name',
                     style: TextStyle(fontSize: 24, fontWeight: bold),
                   ),
                 ],
