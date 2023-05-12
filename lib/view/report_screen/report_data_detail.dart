@@ -47,12 +47,6 @@ class ReportDataDetail extends StatelessWidget {
                               .delete();
                           if (context.mounted) {
                             Navigator.pop(context, 'YA');
-                            // Navigator.pushReplacement(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => const Wrapper(),
-                            //   ),
-                            // );
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Data Deleted Successfully'),
@@ -120,7 +114,7 @@ class ReportDataDetail extends StatelessWidget {
 
             Card(
               child: ListTile(
-                title: const Text('Nama Buku/Judul Buku'),
+                title: const Text('Nama Buku'),
                 trailing: Text(reportData.nameBook ?? 'Null'),
               ),
             ),
@@ -137,7 +131,6 @@ class ReportDataDetail extends StatelessWidget {
                 trailing: Text(reportData.borrowDate ?? 'Null'),
               ),
             ),
-
             deleteButton(context),
           ],
         ),

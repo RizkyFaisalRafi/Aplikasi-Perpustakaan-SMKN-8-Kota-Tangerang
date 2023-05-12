@@ -71,7 +71,8 @@ class TransactionDataDetail extends StatelessWidget {
             context: context,
             builder: ((context) => AlertDialog(
                   title: const Text('Konfirmasi'),
-                  content: const Text('Apakah Anda yakin buku telah dikembalikan?'),
+                  content:
+                      const Text('Apakah Anda yakin buku telah dikembalikan?'),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'TIDAK'),
@@ -117,7 +118,6 @@ class TransactionDataDetail extends StatelessWidget {
                           debugPrint(e.toString());
                         }
                       },
-                      // Navigator.pop(context, 'YA'),
                       child: const Text('YA'),
                     ),
                   ],
@@ -174,7 +174,7 @@ class TransactionDataDetail extends StatelessWidget {
 
             Card(
               child: ListTile(
-                title: const Text('Nama Buku/Judul Buku'),
+                title: const Text('Nama Buku'),
                 trailing: Text(transactionData.nameBook ?? 'Null'),
               ),
             ),
